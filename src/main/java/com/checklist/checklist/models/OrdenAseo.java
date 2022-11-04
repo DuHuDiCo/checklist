@@ -12,17 +12,19 @@ import lombok.Data;
 
 @Data
 @Entity
-public class PeligrosMecanicos {
+public class OrdenAseo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    private  boolean equipos_herramientas_buen_estado;
+    private boolean punto_venta_buen_estado_aseo_mantenimiento;
+    
+    private boolean archivadores_organizados_documento_libros_almacenados;
     
     @Column(length = 10000)
     private String observaciones;
     
-    private List<String> evidencia = new ArrayList<>();
+    private List<String> evidencias = new ArrayList<>();
 
 }
