@@ -4,6 +4,7 @@ package com.checklist.checklist.controllers;
 import com.checklist.checklist.models.Almacen;
 import com.checklist.checklist.models.Evidencia;
 import com.checklist.checklist.models.FormatoInspeccion;
+import com.checklist.checklist.models.Login;
 import com.checklist.checklist.models.SustanciasQuimicas;
 import com.checklist.checklist.services.AlmacenService;
 import com.checklist.checklist.services.FormatoInspeccionService;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -118,6 +120,17 @@ public class FormatoInspeccionController {
     public boolean stringToBoolean(String dato){
         return Boolean.parseBoolean(dato);
         
+    }
+    
+    //ejemplo para practica del frontend
+    @PostMapping("/login")
+    public ResponseEntity<?> iniciarSesion(@RequestBody Login login){
+       if(login.getUsername().equals("Alejo") && login.getPassword().equals("12345")){
+         return  ResponseEntity.ok("Datos Correctos");
+       }else{
+         return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+       }
+       
     }
 
 }
