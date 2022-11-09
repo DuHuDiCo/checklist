@@ -1,9 +1,17 @@
 
 package com.checklist.checklist.controllers;
 
+import com.checklist.checklist.models.Almacen;
+import com.checklist.checklist.models.Evidencia;
 import com.checklist.checklist.models.FormatoInspeccion;
+import com.checklist.checklist.models.SustanciasQuimicas;
+import com.checklist.checklist.services.AlmacenService;
 import com.checklist.checklist.services.FormatoInspeccionService;
+import com.checklist.checklist.utils.SaveFiles;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,12 +30,42 @@ public class FormatoInspeccionController {
     @Autowired
     private FormatoInspeccionService fis;
     
+    @Autowired
+    private AlmacenService almacenService;
     
+     @Autowired
+    private SaveFiles saveFiles;
+    
+            
     @PostMapping("/save")
     public ResponseEntity<?> guardarFormato(@RequestBody FormatoInspeccion fi){
         if(fi == null){
             return ResponseEntity.noContent().build();
         }
+        
+        List<Evidencia> sq = guardarEvidencias(fi.getSustanciasQuimicas().getEvidencias());
+        fi.getSustanciasQuimicas().setEvidencias(sq);
+        
+       
+        List<Evidencia> pe = guardarEvidencias(fi.getPeligrosElectricos().getEvidencias());
+        fi.getPeligrosElectricos().setEvidencias(pe);
+        
+        List<Evidencia> pm = guardarEvidencias(fi.getPeligrosMecanicos().getEvidencias());
+        fi.getPeligrosMecanicos().setEvidencias(pe);
+        
+        List<Evidencia> pl = guardarEvidencias(fi.getPeligrosLocativos().getEvidencias());
+        fi.getPeligrosLocativos().setEvidencias(pe);
+        
+        List<Evidencia> emer = guardarEvidencias(fi.getEmergencias().getEvidencias());
+        fi.getEmergencias().setEvidencias(emer);
+        
+        List<Evidencia> ordenAseo = guardarEvidencias(fi.getOrdenAseo().getEvidencias());
+        fi.getOrdenAseo().setEvidencias(ordenAseo);
+        
+        List<Evidencia> saneamiento = guardarEvidencias(fi.getSaneamientoBasico().getEvidencias());
+        fi.getSaneamientoBasico().setEvidencias(saneamiento);
+        
+        
         
         FormatoInspeccion formatoInspeccion = fis.save(fi);
         
@@ -50,6 +88,36 @@ public class FormatoInspeccionController {
         }
         
         return ResponseEntity.ok(inspeccion);
+    }
+    
+    
+    
+    @GetMapping("/almacenes")
+    public ResponseEntity<List<?>> getAllAlmacenes(){
+        List<Almacen> almacenes = almacenService.getAll();
+        return ResponseEntity.ok(almacenes);
+    }
+    
+    
+    public List<Evidencia> guardarEvidencias(List<Evidencia> evidencias){
+        
+         List<Evidencia> evidenciaPe = new ArrayList<>();
+         evidencias.forEach((evi)->{
+            try {
+                Evidencia evidencia = saveFiles.guardarFile(evi.getRuta());
+                evidencia.setNombreCategoria(evi.getArchivo());
+                evidenciaPe.add(evidencia);
+            } catch (Exception ex) {
+                Logger.getLogger(FormatoInspeccionController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         });
+         return evidenciaPe;
+    }
+    
+    
+    public boolean stringToBoolean(String dato){
+        return Boolean.parseBoolean(dato);
+        
     }
 
 }

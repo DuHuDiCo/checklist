@@ -33,11 +33,13 @@ public class SustanciasQuimicas {
     
     @Column(length = 10000)
     private String observaciones;
-
     
     
     @ManyToMany(fetch = FetchType.LAZY, cascade  = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "sustancias_quimicas_evidencias", joinColumns =  @JoinColumn(name = "sustancias_quimicas_id"), inverseJoinColumns = @JoinColumn(name = "evidencia_id"))
     private List<Evidencia> evidencias = new ArrayList<>();
+    
+    
+    
 
 }

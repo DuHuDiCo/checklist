@@ -9,18 +9,11 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Evidencia {
-    
+public class Almacen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    private String archivo;
-    
-    private String nombreCategoria;
-    
-    private String ruta;
-    
+    private String nombre;
     
     
 
