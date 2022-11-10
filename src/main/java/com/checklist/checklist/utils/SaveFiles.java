@@ -39,17 +39,18 @@ public class SaveFiles {
         }
 
         MultipartFile multipartFile = new CustomMultipartFile(data, dataUir);
-        String name = fileService.save(multipartFile);
-
+        String name = fileService.guardarFile(data, multipartFile);
+          System.out.println(name);
         Evidencia file = new Evidencia();
-        file.setArchivo(name);
+        
+        file.setRuta(name);
 
         
 
-        Resource f = fileService.load(file.getArchivo());
+        Resource f = fileService.load(file.getRuta());
 
         String url = f.getFilename();
-        file.setRuta(url);
+        file.setArchivo(url);
 
         return file;
 

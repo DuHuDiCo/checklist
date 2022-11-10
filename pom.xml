@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.checklist</groupId>
     <artifactId>checklist</artifactId>
-    <packaging>war</packaging>
+    
     <version>0.0.1-SNAPSHOT</version>
     <name>checklist</name>
     <description>Demo project for Spring Boot</description>
@@ -48,19 +48,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <scope>provided</scope>
-
-        </dependency>
-
-        <dependency>     
-            <groupId>org.springframework.boot</groupId>     
-            <artifactId>spring-boot-starter-tomcat</artifactId>   
-            <scope>provided</scope>  
-        </dependency>
+        
 
 
     </dependencies>

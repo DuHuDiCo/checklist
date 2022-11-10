@@ -13,7 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileService {
     
+    public void init();
+    
     public String save(MultipartFile file) throws Exception;
+    
+    public String guardarFile(String file, MultipartFile archi) throws Exception;
     
     public Resource load(String name) throws Exception;
     
