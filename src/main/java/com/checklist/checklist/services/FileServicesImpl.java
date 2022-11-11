@@ -1,22 +1,14 @@
 package com.checklist.checklist.services;
 
 import com.checklist.checklist.models.Evidencia;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Stream;
-import javax.xml.bind.DatatypeConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -37,20 +29,29 @@ public class FileServicesImpl implements FileService {
     }
 
     @Override
-    public String guardarFile(String base64, MultipartFile archi) throws IOException {
+    public String guardarFile( MultipartFile archi) throws IOException {
         
-        byte[] datos = DatatypeConverter.parseBase64Binary(base64);
-        String path = ruta + "/" + archi.getOriginalFilename();
-        File file = new File(path);
+        File arc = new File(ruta);
+         
+        String rutaAbsoluta = "";
+
         try {
-            OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file));
-            outputStream.write(datos);
+
+            Path path = Paths.get(archi.getOriginalFilename());
+            String fileName = path.getFileName().toString();
+            InputStream input = archi.getInputStream();
+
+            if (input != null) {
+                File file = new File(arc, fileName);
+                rutaAbsoluta = file.getAbsolutePath();
+                Files.copy(input, file.toPath());
+            }
 
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
-
-        return path;
+        
+        return rutaAbsoluta;
     }
 
     @Override
