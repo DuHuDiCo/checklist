@@ -26,5 +26,7 @@ public class FormatoInspeccionService {
     public FormatoInspeccion getById(int id){
         return fir.findById(id).orElse(null);
     }
+    
+   
 
 }

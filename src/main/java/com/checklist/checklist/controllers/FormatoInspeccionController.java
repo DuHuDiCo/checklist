@@ -5,10 +5,13 @@ import com.checklist.checklist.models.Almacen;
 import com.checklist.checklist.models.Evidencia;
 import com.checklist.checklist.models.FormatoInspeccion;
 import com.checklist.checklist.models.Login;
+import com.checklist.checklist.models.Pdf;
 import com.checklist.checklist.models.SustanciasQuimicas;
 import com.checklist.checklist.services.AlmacenService;
 import com.checklist.checklist.services.FormatoInspeccionService;
+import com.checklist.checklist.utils.GenerarPdf;
 import com.checklist.checklist.utils.SaveFiles;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,6 +40,10 @@ public class FormatoInspeccionController {
     
      @Autowired
     private SaveFiles saveFiles;
+     
+     
+     @Autowired
+     private GenerarPdf generarPdf;
     
             
     @PostMapping("/save")
@@ -71,9 +78,26 @@ public class FormatoInspeccionController {
         
         FormatoInspeccion formatoInspeccion = fis.save(fi);
         
+        
+        
         return ResponseEntity.ok(formatoInspeccion);
     }
     
+    @GetMapping("/pdf")
+    public ResponseEntity<?> generarPdfs(){
+        List<FormatoInspeccion> formatos = fis.getAll();
+        formatos.forEach((f)->{
+            try {
+                Pdf pdf = generarPdf.generarPdf(f);
+                f.setPdf(pdf);
+                FormatoInspeccion forma = fis.save(f);
+               
+            } catch (IOException ex) {
+                Logger.getLogger(FormatoInspeccionController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        return ResponseEntity.ok("Actulizados Correctamente");
+    }
     
     @GetMapping("/all")
     public ResponseEntity<List<?>> getAll(){
