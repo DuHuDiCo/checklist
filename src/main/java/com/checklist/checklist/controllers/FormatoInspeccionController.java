@@ -47,7 +47,7 @@ public class FormatoInspeccionController {
     
             
     @PostMapping("/save")
-    public ResponseEntity<?> guardarFormato(@RequestBody FormatoInspeccion fi){
+    public ResponseEntity<?> guardarFormato(@RequestBody FormatoInspeccion fi) throws IOException{
         if(fi == null){
             return ResponseEntity.noContent().build();
         }
@@ -75,7 +75,8 @@ public class FormatoInspeccionController {
         fi.getSaneamientoBasico().setEvidencias(saneamiento);
         
         
-        
+        Pdf pfd = generarPdf.generarPdf(fi);
+        fi.setPdf(pfd);
         FormatoInspeccion formatoInspeccion = fis.save(fi);
         
         
