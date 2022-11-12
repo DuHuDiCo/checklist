@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.checklist</groupId>
     <artifactId>checklist</artifactId>
-    
+    <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>checklist</name>
     <description>Demo project for Spring Boot</description>
