@@ -67,5 +67,11 @@ public class FormatoInspeccion {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "pdf_id", referencedColumnName = "id")
     private Pdf pdf;
+    
+    private String estado;
+
+    
+    
+    
 
 }

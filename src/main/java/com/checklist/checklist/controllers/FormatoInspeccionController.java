@@ -77,6 +77,8 @@ public class FormatoInspeccionController {
         
         Pdf pfd = generarPdf.generarPdf(fi);
         fi.setPdf(pfd);
+        fi.setEstado("EN REVISION");
+        
         FormatoInspeccion formatoInspeccion = fis.save(fi);
         
         
@@ -156,6 +158,16 @@ public class FormatoInspeccionController {
          return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
        }
        
+    }
+    
+    @GetMapping("/cambiarEstado/{id}")
+    public ResponseEntity<HttpStatus> cambiarEstado(@PathVariable("id") int id){
+        if(fis.cambiarEstado(id)){
+            return ResponseEntity.ok(HttpStatus.ACCEPTED);
+            
+        }
+        return ResponseEntity.badRequest().build();
+        
     }
 
 }
