@@ -39,7 +39,7 @@ public class SaveFiles {
         }
 
         MultipartFile multipartFile = new CustomMultipartFile(data, dataUir);
-        String name = fileService.guardarFile(data, multipartFile);
+        String name = fileService.guardarFile(multipartFile);
           System.out.println(name);
         Evidencia file = new Evidencia();
         

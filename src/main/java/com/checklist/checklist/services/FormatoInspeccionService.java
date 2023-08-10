@@ -19,12 +19,27 @@ public class FormatoInspeccionService {
     }
     
     public List<FormatoInspeccion> getAll(){
-        return fir.findAll();
+        return fir.findByEstado("EN REVISION");
     }
     
     
     public FormatoInspeccion getById(int id){
         return fir.findById(id).orElse(null);
     }
+    
+    public boolean cambiarEstado(int id){
+        FormatoInspeccion fi = fir.findById(id).orElse(null);
+        if(fi!= null){
+            fi.setEstado("REVISADO");
+            fir.save(fi);
+            return true;
+        }    
+        return false;    
+            
+        
+        
+    }
+    
+   
 
 }

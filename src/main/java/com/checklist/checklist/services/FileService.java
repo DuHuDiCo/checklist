@@ -17,7 +17,7 @@ public interface FileService {
     
     public String save(MultipartFile file) throws Exception;
     
-    public String guardarFile(String file, MultipartFile archi) throws Exception;
+    public String guardarFile( MultipartFile archi) throws Exception;
     
     public Resource load(String name) throws Exception;
     
