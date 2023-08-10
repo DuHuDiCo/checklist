@@ -65,7 +65,19 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>   
             <scope>provided</scope>  
         </dependency>
-
+        
+        <!--DEPENDENCIAS PARA EXCEL-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+       <!-- FIN DEPENDENCIAS PARA EXCEL-->
 
     </dependencies>
 

@@ -11,13 +11,23 @@ import com.checklist.checklist.services.AlmacenService;
 import com.checklist.checklist.services.FormatoInspeccionService;
 import com.checklist.checklist.utils.GenerarPdf;
 import com.checklist.checklist.utils.SaveFiles;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -170,4 +180,44 @@ public class FormatoInspeccionController {
         
     }
 
+    private static final String DOWNLOAD_PATH = "C:/Users/Miguel/Downloads";
+
+    @GetMapping("/download")
+    public ResponseEntity<String> downloadExcel() {
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("MiHoja");
+            
+            List<Almacen> almacenes = almacenService.getAll();
+
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i < almacenes.size(); i++) {
+            Almacen almacen = almacenes.get(i);
+            Cell headerCell = headerRow.createCell(i + 1);
+            headerCell.setCellValue(almacen.getNombre());
+        }
+
+        // Rellenar la primera columna con los nombres de los almacenes
+//            for (int i = 0; i < almacenes.size(); i++) {
+//            Row dataRow = sheet.createRow(i + 1);
+//            Almacen almacen = almacenes.get(i);
+//            Cell dataCell = dataRow.createCell(0);
+//            dataCell.setCellValue(almacen.getNombre());
+//        }
+
+
+            String filePath = DOWNLOAD_PATH + "/mi_archivo_excel.xlsx";
+            File file = new File(filePath);
+
+            try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                workbook.write(outputStream);
+            }
+
+            return ResponseEntity.ok("Archivo Excel creado y guardado en: " + filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear el archivo Excel.");
+        }
+    }
 }
+    
+
