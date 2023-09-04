@@ -2,6 +2,7 @@
 package com.checklist.checklist.models;
 
 import java.util.Date;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Table(name = "reporte_excel")
+@Entity
 public class ReporteExcel {
     
     @Id

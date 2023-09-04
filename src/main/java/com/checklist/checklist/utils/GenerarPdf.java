@@ -240,7 +240,7 @@ public class GenerarPdf {
         }
     }
     
-     public static String obtenerFechaServer(String formato) {
+     public  String obtenerFechaServer(String formato) {
         Calendar calendar = Calendar.getInstance();
 
         SimpleDateFormat sdf = new SimpleDateFormat(formato);

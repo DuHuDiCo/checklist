@@ -65,10 +65,10 @@ public class FormatoInspeccionController {
         fi.getPeligrosElectricos().setEvidencias(pe);
         
         List<Evidencia> pm = guardarEvidencias(fi.getPeligrosMecanicos().getEvidencias());
-        fi.getPeligrosMecanicos().setEvidencias(pe);
+        fi.getPeligrosMecanicos().setEvidencias(pm);
         
         List<Evidencia> pl = guardarEvidencias(fi.getPeligrosLocativos().getEvidencias());
-        fi.getPeligrosLocativos().setEvidencias(pe);
+        fi.getPeligrosLocativos().setEvidencias(pl);
         
         List<Evidencia> emer = guardarEvidencias(fi.getEmergencias().getEvidencias());
         fi.getEmergencias().setEvidencias(emer);
