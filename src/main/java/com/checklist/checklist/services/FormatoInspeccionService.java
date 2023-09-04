@@ -1,4 +1,3 @@
-
 package com.checklist.checklist.services;
 
 import com.checklist.checklist.models.Evidencia;
@@ -16,25 +15,24 @@ import org.springframework.util.CollectionUtils;
 
 @Service
 public class FormatoInspeccionService {
-    
+
     @Autowired
     private FormatoInspeccionRepository fir;
-    
+
     @Autowired
     private SaveFiles saveFiles;
-    
-    
-    public FormatoInspeccion save(FormatoInspeccion formatoInspeccion){
+
+    public FormatoInspeccion save(FormatoInspeccion formatoInspeccion) {
         return fir.save(formatoInspeccion);
     }
-    
-    public List<FormatoInspeccion> getAll(){
-        
+
+    public List<FormatoInspeccion> getAll() {
+
         List<FormatoInspeccion> formatos = fir.findByEstado("EN REVISION");
-        if(CollectionUtils.isEmpty(formatos)){
+        if (CollectionUtils.isEmpty(formatos)) {
             return null;
         }
-        
+
         for (FormatoInspeccion formato : formatos) {
             for (Evidencia evidencia : formato.getSustanciasQuimicas().getEvidencias()) {
                 try {
@@ -43,29 +41,73 @@ public class FormatoInspeccionService {
                     Logger.getLogger(FormatoInspeccionService.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
+            for (Evidencia evidencia : formato.getPeligrosMecanicos().getEvidencias()) {
+                try {
+                    evidencia.setRuta(saveFiles.imagenToBase64(evidencia.getRuta()).getRuta());
+                } catch (IOException ex) {
+                    Logger.getLogger(FormatoInspeccionService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            for (Evidencia evidencia : formato.getPeligrosElectricos().getEvidencias()) {
+                try {
+                    evidencia.setRuta(saveFiles.imagenToBase64(evidencia.getRuta()).getRuta());
+                } catch (IOException ex) {
+                    Logger.getLogger(FormatoInspeccionService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            for (Evidencia evidencia : formato.getPeligrosLocativos().getEvidencias()) {
+                try {
+                    evidencia.setRuta(saveFiles.imagenToBase64(evidencia.getRuta()).getRuta());
+                } catch (IOException ex) {
+                    Logger.getLogger(FormatoInspeccionService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            for (Evidencia evidencia : formato.getEmergencias().getEvidencias()) {
+                try {
+                    evidencia.setRuta(saveFiles.imagenToBase64(evidencia.getRuta()).getRuta());
+                } catch (IOException ex) {
+                    Logger.getLogger(FormatoInspeccionService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+             for (Evidencia evidencia : formato.getOrdenAseo().getEvidencias()) {
+                try {
+                    evidencia.setRuta(saveFiles.imagenToBase64(evidencia.getRuta()).getRuta());
+                } catch (IOException ex) {
+                    Logger.getLogger(FormatoInspeccionService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+             
+              for (Evidencia evidencia : formato.getSaneamientoBasico().getEvidencias()) {
+                try {
+                    evidencia.setRuta(saveFiles.imagenToBase64(evidencia.getRuta()).getRuta());
+                } catch (IOException ex) {
+                    Logger.getLogger(FormatoInspeccionService.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
-        
+
         return formatos;
     }
-    
-    
-    public FormatoInspeccion getById(int id){
+
+    public FormatoInspeccion getById(int id) {
         return fir.findById(id).orElse(null);
     }
-    
-    public boolean cambiarEstado(int id){
+
+    public boolean cambiarEstado(int id) {
         FormatoInspeccion fi = fir.findById(id).orElse(null);
-        if(fi!= null){
+        if (fi != null) {
             fi.setEstado("REVISADO");
             fir.save(fi);
             return true;
-        }    
-        return false;    
-            
-        
-        
+        }
+        return false;
+
     }
-    
-   
 
 }

@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,7 +33,8 @@ public class GenerarExcel {
     private final SaveFiles  saveFiles;
     
 //    private final String RUTA = "/var/lib/tomcat9/webapps/checklist/uploads/";
-    private final String RUTA = "J:\\Descargas\\upload\\";
+    @Value("${ruta.excel}")
+    private  String RUTA ;
 
     public GenerarExcel(FormatoInspeccionService formatoInspeccionService, AlmacenService almacenService, GenerarPdf generarPdf, ReporteExcelRepository excelRepository, SaveFiles saveFiles) {
         this.formatoInspeccionService = formatoInspeccionService;

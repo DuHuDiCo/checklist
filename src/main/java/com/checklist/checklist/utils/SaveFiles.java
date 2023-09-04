@@ -44,7 +44,8 @@ public class SaveFiles {
         Evidencia file = new Evidencia();
         
         file.setRuta(name);
-
+        file.setDataUri(dataUir);
+                
         
 
         Resource f = fileService.load(file.getRuta());

@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,9 @@ public class FileServicesImpl implements FileService {
 
     private final Path rootFolder = Paths.get("uploads");
 
-    String ruta = "/var/lib/tomcat9/webapps/checklist/uploads";
+    @Value("${ruta.pdf}")
+    String ruta ;
+//    String ruta = "J:\\Descargas\\uploadChecklist";
     
 
     @Override
