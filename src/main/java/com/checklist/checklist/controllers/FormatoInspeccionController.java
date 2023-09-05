@@ -6,9 +6,11 @@ import com.checklist.checklist.models.Evidencia;
 import com.checklist.checklist.models.FormatoInspeccion;
 import com.checklist.checklist.models.Login;
 import com.checklist.checklist.models.Pdf;
+import com.checklist.checklist.models.ReporteExcel;
 import com.checklist.checklist.models.SustanciasQuimicas;
 import com.checklist.checklist.services.AlmacenService;
 import com.checklist.checklist.services.FormatoInspeccionService;
+import com.checklist.checklist.services.GenerarExcel;
 import com.checklist.checklist.utils.GenerarPdf;
 import com.checklist.checklist.utils.SaveFiles;
 import java.io.IOException;
@@ -46,6 +48,9 @@ public class FormatoInspeccionController {
      private GenerarPdf generarPdf;
     
             
+     @Autowired
+     private GenerarExcel  generarExcel;
+     
     @PostMapping("/save")
     public ResponseEntity<?> guardarFormato(@RequestBody FormatoInspeccion fi) throws IOException{
         if(fi == null){
@@ -60,10 +65,10 @@ public class FormatoInspeccionController {
         fi.getPeligrosElectricos().setEvidencias(pe);
         
         List<Evidencia> pm = guardarEvidencias(fi.getPeligrosMecanicos().getEvidencias());
-        fi.getPeligrosMecanicos().setEvidencias(pe);
+        fi.getPeligrosMecanicos().setEvidencias(pm);
         
         List<Evidencia> pl = guardarEvidencias(fi.getPeligrosLocativos().getEvidencias());
-        fi.getPeligrosLocativos().setEvidencias(pe);
+        fi.getPeligrosLocativos().setEvidencias(pl);
         
         List<Evidencia> emer = guardarEvidencias(fi.getEmergencias().getEvidencias());
         fi.getEmergencias().setEvidencias(emer);
@@ -170,4 +175,10 @@ public class FormatoInspeccionController {
         
     }
 
+    
+    @GetMapping("/reporte/")
+    public ResponseEntity<ReporteExcel> generarExcel(){
+        ReporteExcel rp = generarExcel.generarReporteExcel();
+        return ResponseEntity.ok(rp);
+    }
 }

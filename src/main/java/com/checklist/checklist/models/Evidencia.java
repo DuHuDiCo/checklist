@@ -21,7 +21,7 @@ public class Evidencia {
     
     private String ruta;
     
-    
+    private String dataUri;
     
 
 }
