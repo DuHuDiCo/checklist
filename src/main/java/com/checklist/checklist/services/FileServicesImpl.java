@@ -22,7 +22,7 @@ public class FileServicesImpl implements FileService {
 
     @Value("${ruta.pdf}")
     String ruta ;
-//    String ruta = "J:\\Descargas\\uploadChecklist";
+
     
 
     @Override
