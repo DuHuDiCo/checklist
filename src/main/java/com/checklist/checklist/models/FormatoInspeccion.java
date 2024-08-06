@@ -1,6 +1,7 @@
 package com.checklist.checklist.models;
 
 import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,10 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import lombok.Data;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Data
+
 @Entity
 public class FormatoInspeccion {
 
@@ -69,6 +70,136 @@ public class FormatoInspeccion {
     private Pdf pdf;
     
     private String estado;
+
+    public FormatoInspeccion() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getRealizadoBy() {
+        return realizadoBy;
+    }
+
+    public void setRealizadoBy(String realizadoBy) {
+        this.realizadoBy = realizadoBy;
+    }
+
+    public Date getFecha_inspeccion() {
+        return fecha_inspeccion;
+    }
+
+    public void setFecha_inspeccion(Date fecha_inspeccion) {
+        this.fecha_inspeccion = fecha_inspeccion;
+    }
+
+    public String getPunto_venta() {
+        return punto_venta;
+    }
+
+    public void setPunto_venta(String punto_venta) {
+        this.punto_venta = punto_venta;
+    }
+
+    public SustanciasQuimicas getSustanciasQuimicas() {
+        return sustanciasQuimicas;
+    }
+
+    public void setSustanciasQuimicas(SustanciasQuimicas sustanciasQuimicas) {
+        this.sustanciasQuimicas = sustanciasQuimicas;
+    }
+
+    public PeligrosElectricos getPeligrosElectricos() {
+        return peligrosElectricos;
+    }
+
+    public void setPeligrosElectricos(PeligrosElectricos peligrosElectricos) {
+        this.peligrosElectricos = peligrosElectricos;
+    }
+
+    public PeligrosMecanicos getPeligrosMecanicos() {
+        return peligrosMecanicos;
+    }
+
+    public void setPeligrosMecanicos(PeligrosMecanicos peligrosMecanicos) {
+        this.peligrosMecanicos = peligrosMecanicos;
+    }
+
+    public PeligrosLocativos getPeligrosLocativos() {
+        return peligrosLocativos;
+    }
+
+    public void setPeligrosLocativos(PeligrosLocativos peligrosLocativos) {
+        this.peligrosLocativos = peligrosLocativos;
+    }
+
+    public Emergencias getEmergencias() {
+        return emergencias;
+    }
+
+    public void setEmergencias(Emergencias emergencias) {
+        this.emergencias = emergencias;
+    }
+
+    public OrdenAseo getOrdenAseo() {
+        return ordenAseo;
+    }
+
+    public void setOrdenAseo(OrdenAseo ordenAseo) {
+        this.ordenAseo = ordenAseo;
+    }
+
+    public SaneamientoBasico getSaneamientoBasico() {
+        return saneamientoBasico;
+    }
+
+    public void setSaneamientoBasico(SaneamientoBasico saneamientoBasico) {
+        this.saneamientoBasico = saneamientoBasico;
+    }
+
+    public Pdf getPdf() {
+        return pdf;
+    }
+
+    public void setPdf(Pdf pdf) {
+        this.pdf = pdf;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    
+    
 
     
     
