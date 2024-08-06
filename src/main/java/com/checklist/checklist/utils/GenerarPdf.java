@@ -215,13 +215,13 @@ public class GenerarPdf {
             name = "formato_" + formatoInspeccion.getPunto_venta() + "_" + obtenerFechaServer("yyyy-MM-dd") + ".pdf";
 
             contens.close();
-            doc.save(ruta);
+            doc.save(ruta.concat(name));
             doc.close();
         }
 
         Pdf pdf = new Pdf();
         pdf.setNombre(name);
-        pdf.setRuta(ruta);
+        pdf.setRuta(ruta.concat(name));
 
         return pdf;
     }

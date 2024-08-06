@@ -62,7 +62,7 @@ public class GenerarExcel {
             for (int i = 1; i < reportes.size(); i++) {
 
                 Cell headerCell = row.createCell(i);
-                headerCell.setCellValue(reportes.get(i - 1).getPunto_venta());
+                headerCell.setCellValue(reportes.get(i - 1).getPunto_venta().concat(" - ").concat(reportes.get(i-1).getFecha_inspeccion().toString()));
 
             }
 

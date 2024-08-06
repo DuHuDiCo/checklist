@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/formato")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:4200/", "http://192.168.1.171:8600", "http://201.184.154.82:8500", "https://checklistgmjlocal.duckdns.org/", "http://checklistgmjexterno.duckdns.org/", "*"})
 public class FormatoInspeccionController {
     
     @Autowired
