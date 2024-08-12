@@ -15,7 +15,6 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 public class FormatoInspeccion {
 
@@ -33,7 +32,7 @@ public class FormatoInspeccion {
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private Date fecha_inspeccion;
+    private Date fechaInspeccion;
 
     private String punto_venta;
 
@@ -68,7 +67,7 @@ public class FormatoInspeccion {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "pdf_id", referencedColumnName = "id")
     private Pdf pdf;
-    
+
     private String estado;
 
     public FormatoInspeccion() {
@@ -108,14 +107,6 @@ public class FormatoInspeccion {
 
     public void setRealizadoBy(String realizadoBy) {
         this.realizadoBy = realizadoBy;
-    }
-
-    public Date getFecha_inspeccion() {
-        return fecha_inspeccion;
-    }
-
-    public void setFecha_inspeccion(Date fecha_inspeccion) {
-        this.fecha_inspeccion = fecha_inspeccion;
     }
 
     public String getPunto_venta() {
@@ -198,11 +189,12 @@ public class FormatoInspeccion {
         this.estado = estado;
     }
 
-    
-    
+    public Date getFechaInspeccion() {
+        return fechaInspeccion;
+    }
 
-    
-    
-    
+    public void setFechaInspeccion(Date fechaInspeccion) {
+        this.fechaInspeccion = fechaInspeccion;
+    }
 
 }

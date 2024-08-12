@@ -6,6 +6,7 @@ import com.checklist.checklist.repository.FormatoInspeccionRepository;
 import com.checklist.checklist.utils.SaveFiles;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,9 +27,10 @@ public class FormatoInspeccionService {
         return fir.save(formatoInspeccion);
     }
 
-    public List<FormatoInspeccion> getAll() {
+    public List<FormatoInspeccion> getAll(Date fechaStart, Date fechaEnd) {
 
-        List<FormatoInspeccion> formatos = fir.findByEstado("EN REVISION");
+        List<FormatoInspeccion> formatos = fir.findByEstadoAndFechaInspeccionBetween("EN REVISION", fechaStart,
+                fechaEnd);
         if (CollectionUtils.isEmpty(formatos)) {
             return null;
         }
@@ -73,16 +75,16 @@ public class FormatoInspeccionService {
                     Logger.getLogger(FormatoInspeccionService.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-             for (Evidencia evidencia : formato.getOrdenAseo().getEvidencias()) {
+
+            for (Evidencia evidencia : formato.getOrdenAseo().getEvidencias()) {
                 try {
                     evidencia.setRuta(saveFiles.imagenToBase64(evidencia.getRuta()).getRuta());
                 } catch (IOException ex) {
                     Logger.getLogger(FormatoInspeccionService.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-             
-              for (Evidencia evidencia : formato.getSaneamientoBasico().getEvidencias()) {
+
+            for (Evidencia evidencia : formato.getSaneamientoBasico().getEvidencias()) {
                 try {
                     evidencia.setRuta(saveFiles.imagenToBase64(evidencia.getRuta()).getRuta());
                 } catch (IOException ex) {
