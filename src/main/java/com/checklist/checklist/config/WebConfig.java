@@ -18,7 +18,7 @@ public class WebConfig {
         // Define los orígenes permitidos
         configuration.setAllowedOrigins(
                 Arrays.asList("http://localhost:4200/", "http://192.168.1.171:8600", "http://201.184.154.82:8500",
-                        "https://checklistgmjlocal.duckdns.org/", "http://checklistgmjexterno.duckdns.org"));
+                        "https://checklistgmjlocal.duckdns.org/", "http://checklistgmjexterno.duckdns.org/"));
 
         // Métodos permitidos
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
